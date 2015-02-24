@@ -1,4 +1,11 @@
 <% provide(:title, "Upcoming Events") %>
+<script type="text/javascript">
+  Shadowbox.init(
+  {
+    handleOversize: "resize",
+    viewportPadding: "225px"
+  });
+</script>
 
 <div class="container-fluid">
   <div class="row">
@@ -51,7 +58,8 @@
   <script type="text/javascript">
 			$(document).ready(function() 
 			{
-				$('.footer').addClass("margin-left-home");	
+				$('.footer').addClass("margin-left-home");
+        $('#debug-console').attr('id', 'console-margin');
 			});
   </script>
 

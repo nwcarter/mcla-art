@@ -6,10 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="icon" href="favicon.png">
-    
+
     <title><%= full_title(yield(:title)) %></title>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'shadowbox.js' %>
     <%= csrf_meta_tags %>
     <%= render 'layouts/shim' %>
   </head>
@@ -19,5 +20,10 @@
     <%= yield %>
     
     <%= render 'layouts/footer' %>
+    
+    <div id="debug-console">
+    <%= debug(params) if Rails.env.development? %>
+    </div>
+    
   </body>
 </html>
