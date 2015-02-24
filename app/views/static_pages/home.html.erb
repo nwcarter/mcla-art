@@ -1,121 +1,57 @@
 <% provide(:title, "Upcoming Events") %>
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="icon" href="favicon.png">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-2 col-md-2 sidebar">
+      <!--Sidebar content goes here -->
+      <h2 id="trending-bar" class="page-header">Trending</h2>
 
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link href="dashboard.css" rel="stylesheet">
-    <link href="custom.css" rel="stylesheet">
+      <a href="images/trending1.jpg" rel="shadowbox[Trending]" title="Trending Image 1"><img class="trending-thumbnail" src="images/trending1.jpg" width="90%"></a>
+      <a href="images/trending2.jpg" rel="shadowbox[Trending]" title="Trending Image 2"><img class="trending-thumbnail" src="images/trending2.jpg" width="90%"></a>
+      <a href="images/trending3.jpg" rel="shadowbox[Trending]" title="Trending Image 3"><img class="trending-thumbnail" src="images/trending3.jpg" width="90%"></a>
+      <a href="images/trending4.jpg" rel="shadowbox[Trending]" title="Trending Image 4"><img class="trending-thumbnail" src="images/trending4.jpg" width="90%"></a>
+      <a href="images/trending5.jpg" rel="shadowbox[Trending];width=760;height=475;" title="Trending Image 5"><img class="trending-thumbnail" src="images/trending5.jpg" width="90%"></a>
+      
+    </div>
+    <div class="col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2 main main-event-panel">
+      <h1 class="page-header">Upcoming Events</h1>
+        
+        <div class="event-div">
+          <table id="event-table">
+          <tr>
+            <td class="event left"><img class="poster" src="images/poster1.jpg" width="400px"></img></td>
+            <td class="event right">
+              <h3><%= link_to("Let It Flow", event_path, class: 'link-without-style') %></br><small>Wednesday February 5, 2015 at 5:00PM - 8:00PM - Venable Gym</small></h3></br>
+              <p>Lorem ipsum dolor sit amet, debitis democritum ad vel. Eu nam erant putent temporibus, te exerci evertitur abhorreant vis. Cibo habeo neglegentur cum ad. Facete molestiae definitionem sit te, usu cetero senserit ad. Qui iusto consul laoreet eu, graecis molestie consequuntur cu qui, per at vidit sadipscing.</p>
 
-    <link rel="stylesheet" type="text/css" href="shadowbox.css">
-    <script type="text/javascript" src="shadowbox.js"></script>
-    <script type="text/javascript">
-    Shadowbox.init({
-    	handleOversize: "resize",
-    	viewportPadding: "125px"
-	});
-    </script>
+              <p>Te dicam timeam volumus eos, eu quo quodsi mentitum. Mel an platonem ullamcorper, timeam omittam assueverit sea no. Ne vix aliquid conceptam, nibh meis ne mea, vix no assentior definiebas. Pro no delectus convenire, mei ne prompta commune conclusionemque. Ea quo nullam primis electram.</p>
+            </td>
+          </tr>
+          </table>
+        </div>  
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
+        <div class="event-div">
+          <table id="event-table">
+          <tr>
+            <td class="event left"><img class="poster" src="images/poster2.jpg" width="400px"></img></td>
+            <td class="event right">
+              <h3>Art Show</br><small>Friday February 7, 2015 at 6:30PM - 9:00PM - MCLA Gallery 51</small></h3></br>
+              <p>Lorem ipsum dolor sit amet, debitis democritum ad vel. Eu nam erant putent temporibus, te exerci evertitur abhorreant vis. Cibo habeo neglegentur cum ad. Facete molestiae definitionem sit te, usu cetero senserit ad. Qui iusto consul laoreet eu, graecis molestie consequuntur cu qui, per at vidit sadipscing.</p>
 
-  <body>
-  
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">MCLA Art<!--<img id = "Artlogo" src = "images/Artlogo.png"--></a>
+              <p>Te dicam timeam volumus eos, eu quo quodsi mentitum. Mel an platonem ullamcorper, timeam omittam assueverit sea no. Ne vix aliquid conceptam, nibh meis ne mea, vix no assentior definiebas. Pro no delectus convenire, mei ne prompta commune conclusionemque. Ea quo nullam primis electram.</p>
+            </td>
+          </tr>
+          </table>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Gallery</a></li>
-            <li><a href="#">Log In</a></li>
-          </ul>
-          <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="Search...">
-          </form>
-        </div>
+      
       </div>
-    </nav>
+    </div>
+  </div>
 
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm- col-md-2 sidebar">
-          <!--Sidebar content goes here -->
-          <h2 id="trending-bar" class="page-header">Trending</h2>
-
-          <a href="images/trending1.jpg" rel="shadowbox[Trending]" title="Trending Image 1"><img class="trending-thumbnail" src="images/trending1.jpg" width="90%"></a>
-          <a href="images/trending2.jpg" rel="shadowbox[Trending]" title="Trending Image 2"><img class="trending-thumbnail" src="images/trending2.jpg" width="90%"></a>
-          <a href="images/trending3.jpg" rel="shadowbox[Trending]" title="Trending Image 3"><img class="trending-thumbnail" src="images/trending3.jpg" width="90%"></a>
-          <a href="images/trending4.jpg" rel="shadowbox[Trending]" title="Trending Image 4"><img class="trending-thumbnail" src="images/trending4.jpg" width="90%"></a>
-          <a href="images/trending5.jpg" rel="shadowbox[Trending];width=760;height=475;" title="Trending Image 5"><img class="trending-thumbnail" src="images/trending5.jpg" width="90%"></a>
-          
-        </div>
-        <div class="col-sm-10 col-sm-offset-3 col-md-10 col-md-offset-2 main main-event-panel">
-          <h1 class="page-header">Upcoming Events</h1>
-            
-            <div class="event-div">
-              <table id="event-table">
-              <tr>
-                <td class="event left"><img class="poster" src="images/poster1.jpg" width="400px"></img></td>
-                <td class="event right">
-                  <h3><a class="link-without-style" href="eventdetails.html">Let It Flow</a></br><small>Wednesday February 5, 2015 at 5:00PM - 8:00PM - Venable Gym</small></h3></br>
-                  <p>Lorem ipsum dolor sit amet, debitis democritum ad vel. Eu nam erant putent temporibus, te exerci evertitur abhorreant vis. Cibo habeo neglegentur cum ad. Facete molestiae definitionem sit te, usu cetero senserit ad. Qui iusto consul laoreet eu, graecis molestie consequuntur cu qui, per at vidit sadipscing.</p>
-
-                  <p>Te dicam timeam volumus eos, eu quo quodsi mentitum. Mel an platonem ullamcorper, timeam omittam assueverit sea no. Ne vix aliquid conceptam, nibh meis ne mea, vix no assentior definiebas. Pro no delectus convenire, mei ne prompta commune conclusionemque. Ea quo nullam primis electram.</p>
-                </td>
-              </tr>
-              </table>
-            </div>  
-
-            <div class="event-div">
-              <table id="event-table">
-              <tr>
-                <td class="event left"><img class="poster" src="images/poster2.jpg" width="400px"></img></td>
-                <td class="event right">
-                  <h3>Art Show</br><small>Friday February 7, 2015 at 6:30PM - 9:00PM - MCLA Gallery 51</small></h3></br>
-                  <p>Lorem ipsum dolor sit amet, debitis democritum ad vel. Eu nam erant putent temporibus, te exerci evertitur abhorreant vis. Cibo habeo neglegentur cum ad. Facete molestiae definitionem sit te, usu cetero senserit ad. Qui iusto consul laoreet eu, graecis molestie consequuntur cu qui, per at vidit sadipscing.</p>
-
-                  <p>Te dicam timeam volumus eos, eu quo quodsi mentitum. Mel an platonem ullamcorper, timeam omittam assueverit sea no. Ne vix aliquid conceptam, nibh meis ne mea, vix no assentior definiebas. Pro no delectus convenire, mei ne prompta commune conclusionemque. Ea quo nullam primis electram.</p>
-                </td>
-              </tr>
-              </table>
-            </div>
-
-            <div id="footer-div">
-            <footer>A project by Nathan Carter and Brad G.</footer>
-            </div>
-          
-          </div>
-        </div>
-      </div>
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
-    <script src="../../assets/js/docs.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
-  </body>
-</html>
+  <script type="text/javascript">
+			$(document).ready(function() 
+			{
+				$('.footer').addClass("margin-left-home");	
+			});
+  </script>
 

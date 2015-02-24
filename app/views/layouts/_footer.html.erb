@@ -1,0 +1,26 @@
+<footer class="footer">
+  <small>
+    MCLA Art Event Collection</a>
+    by <a href="https://github.com/nwcarter">Nathan Carter</a>
+    and <a href="https://github.com/fang092">Bradley Gradneigo</a>
+  </small>
+  <nav>
+    <ul>
+      <li><%= link_to "About",   '#' %></li>
+      <li><%= link_to "Contact", '#' %></li>
+    </ul>
+  </nav>
+</footer>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<%= javascript_include_tag 'shadowbox.js' %>
+<script type="text/javascript">
+  Shadowbox.init(
+  {
+    handleOversize: "resize",
+    viewportPadding: "225px"
+  });
+</script>
