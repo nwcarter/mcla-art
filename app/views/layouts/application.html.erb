@@ -10,7 +10,7 @@
     <title><%= full_title(yield(:title)) %></title>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-    <%= javascript_include_tag 'shadowbox.js' %>
+    <link rel="stylesheet" href="/fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
     <%= csrf_meta_tags %>
     <%= render 'layouts/shim' %>
   </head>
