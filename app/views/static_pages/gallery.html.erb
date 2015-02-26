@@ -1,7 +1,4 @@
 <% provide(:title, "Gallery") %>
-<script type="text/javascript">
-    Shadowbox.init();
-</script>
 
 <div id="gallery" class="container panel">
   <h2 id="gallery-header" class="page-header">All Images</h2>
@@ -104,3 +101,15 @@
   <p class="float-clear"></p>
   </center>
 </div>
+
+<script type="text/javascript">
+      $(document).ready(function() 
+      {
+        Shadowbox.init(
+        {
+          handleOversize: "resize",
+          viewportPadding: "75px"
+        });
+      });
+
+</script>
