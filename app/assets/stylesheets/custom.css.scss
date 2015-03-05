@@ -88,9 +88,6 @@
 {
 	border-bottom: 2px solid #DDD; 
 	margin-top: 10px;
-	margin-left: 2%;
-	margin-right: 2%;
-	width: 96%;
 }
 #event-left-panel
 {
@@ -100,7 +97,8 @@
 	padding-bottom: 0px;
 	margin-bottom: 0px;
 	padding-top: 20px;
-	min-height: 700px;
+	min-height: 500px;
+	border-right: 2px solid #DDD;
 }
 #event-right-panel
 {
@@ -110,8 +108,7 @@
 	padding-bottom: 0px;
 	margin-bottom: 0px;
 	padding-top: 0px;
-	min-height: 700px;
-	border-left: 2px solid #DDD;
+	min-height: 500px;
 }
 
 .temp-border
@@ -315,4 +312,17 @@ input {
   .form-control {
     color: $state-danger-text;
   }
+}
+.float-left
+{
+	float: left;
+}
+#edit-table
+{
+	width: 100%;
+}
+.edit-td
+{
+	padding: 10px;
+	border: #DDD 1px solid;
 }
