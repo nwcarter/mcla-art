@@ -4,6 +4,10 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
+    @events = Event.all.order("id DESC")
+  end
+
+  def list
     @events = Event.all
   end
 

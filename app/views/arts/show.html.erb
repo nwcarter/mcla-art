@@ -1,4 +1,35 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+	<p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_art_path(@art) %> |
-<%= link_to 'Back', arts_path %>
+	<p>
+		<%= image_tag @art.image.url(:large) %>
+	</p>
+
+	<p>
+	  <strong>Title:</strong>
+	  <%= @art.name %>
+	</p>
+
+	<p>
+		<strong>Events:</br></strong>
+		<% if @art.events.size == 0 %>
+			None added.
+		<% end %>
+		<% @art.events.each do |event| %>
+			<%= link_to event.title, event %></br>
+		<% end %>
+	</p>
+
+	<p>
+		<strong>Artists:</br></strong>
+		<% if @art.artists.size == 0 %>
+			None added.
+		<% end %>
+		<% @art.artists.each do |artist| %>
+			<%= artist.name %></br>
+		<% end %>
+	</p>
+
+	<%= link_to 'Edit', edit_art_path(@art) %> |
+	<%= link_to 'Back', arts_path %>
+</div>

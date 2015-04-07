@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
 root             'events#index'
+get    'events'  => 'events#list'
+get    'artists' => 'artists#index'
+get    'arts'    => 'arts#index'
 get    'help'    => 'static_pages#help'
 get    'gallery' => 'static_pages#gallery'
 get    'signup'  => 'users#new'

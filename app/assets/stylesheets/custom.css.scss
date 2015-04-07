@@ -138,9 +138,7 @@
 {
 	float: left;
 	background-color: #EEE;
-	width: 22%;
 	height: 210px;
-	margin-left: 1%;
 	margin-right: 1%;
 	margin-bottom: 15px;
 }
@@ -296,9 +294,6 @@ input, textarea, select, .uneditable-input {
   @include box_sizing;
 }
 
-input {
-  height: auto !important;
-}
 #error_explanation {
   color: red;
   ul {
