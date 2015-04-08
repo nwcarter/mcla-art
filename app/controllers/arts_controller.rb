@@ -12,6 +12,11 @@ class ArtsController < ApplicationController
   def show
   end
 
+  def gallery
+    @arts = Art.all
+    @count = 0
+  end
+
   # GET /arts/new
   def new
     @art = Art.new
