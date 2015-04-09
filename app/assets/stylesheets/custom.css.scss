@@ -326,3 +326,28 @@ input, textarea, select, .uneditable-input {
 	padding: 10px;
 	border: #DDD 1px solid;
 }
+.customSpacingArt
+{
+	margin-left:350px;
+	margin-right:350px;
+	width: 500px; 
+	height:300px;
+
+	h1
+	{
+		margin-left:150px;
+	}
+}
+.customSpacingEvent
+{
+	margin-left:350px;
+	margin-right:350px;
+	margin-bottom:150px;
+	width: 500px; 
+	height:450px;
+
+	h1
+	{
+		margin-left:150px;
+	}
+}
