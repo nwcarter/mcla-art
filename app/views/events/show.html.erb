@@ -4,8 +4,13 @@
         
   <div id="event-left-panel">
     <center>
+      <% if @event.time[0..9] == @event.end_time[0..9] 
+        end_time = @event.end_time[10..@event.end_time.length]
+        else
+        end_time = @event.end_time
+        end %>
     	<%= image_tag @event.poster.url(:home), class: 'poster' %>
-      <h3><%= @event.title %></br><small><%= @event.time %></br>
+      <h3><%= @event.title %></br><small><%= @event.time %> - <%= end_time %></br>
       Located in: <%= @event.location %></small></h3>
     </center>
   </div>
@@ -54,3 +59,6 @@
   <p class="float-clear"></p>
   </center>
 </div>
+<script type="text/javascript">
+  $('')
+</script>

@@ -21,6 +21,10 @@ class ArtistsController < ApplicationController
   def edit
   end
 
+  def get_ajax
+    render :json => Artist.all.order("name")
+  end
+
   # POST /artists
   # POST /artists.json
   def create

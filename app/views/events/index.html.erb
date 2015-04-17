@@ -4,24 +4,22 @@
   <div class="row">
     <div class="col-sm-2 col-md-2 sidebar">
       <!--Sidebar content goes here -->
-      <h2 id="trending-bar" class="page-header">Trending</h2>
+      <h2 id="trending-bar" class="page-header">Popular</h2>
 
-      <a class="fancybox" rel="group" title="Trending 1" href="images/trending1.jpg"><img class="trending-thumbnail" src="images/trending1.jpg" width="90%"></a>
-      <a class="fancybox" rel="group" title="Trending 2" href="images/trending2.jpg"><img class="trending-thumbnail" src="images/trending2.jpg" width="90%"></a>
-      <a class="fancybox" rel="group" title="Trending 3" href="images/trending3.jpg"><img class="trending-thumbnail" src="images/trending3.jpg" width="90%"></a>
-      <a class="fancybox" rel="group" title="Trending 4" href="images/trending4.jpg"><img class="trending-thumbnail" src="images/trending4.jpg" width="90%"></a>
-      <a class="fancybox" rel="group" title="Trending 5" href="images/trending5.jpg"><img class="trending-thumbnail" src="images/trending5.jpg" width="90%"></a>
-      
+      <% @popular.each do |trending| %>
+        <a class="fancybox" rel="group" title="<%= trending.name %>" href="<%= trending.image.url %>"><img class="trending-thumbnail" src="<%= trending.image.url(:large) %>" width="90%"></a>
+      <% end %>
     </div>
     <div class="col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2 main main-event-panel">
     <h1 class="page-header">Upcoming Events</h1>
     <% @events.each do |event| %>
+      
       <div class="event-div">
           <table id="event-table">
           <tr>
             <td class="event left"><%= image_tag event.poster.url(:home) %></td>
             <td class="event right">
-            <h3><%= link_to(event.title, event, class: 'link-without-style') %></br><small><%= event.time %> - <%= event.location %></small></h3></br>
+            <h3><%= link_to(event.title, event, class: 'link-without-style') %></br><small><%= getTimeString(event.time, event.end_time) %> - <%= event.location %></small></h3></br>
             <p><%= event.about %></p>
             <p><%= event.history %></p>
             </td>

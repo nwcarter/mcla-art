@@ -2,16 +2,19 @@ source 'https://rubygems.org'
 
 ruby '2.1.3'
 
-gem 'rails',                '4.2.0'
-gem "paperclip",            '4.2'
-gem 'bcrypt',               '3.1.7'
-gem 'bootstrap-sass',       '3.2.0.0'
-gem 'sass-rails',           '5.0.1'
-gem 'uglifier',             '2.5.3'
-gem 'coffee-rails',         '4.1.0'
-gem 'jquery-rails',         '4.0.3'
-gem 'jbuilder',             '2.2.3'
-gem 'sdoc',                 '0.4.0', group: :doc
+gem 'remotipart',                      '~> 1.2'
+gem 'rails',                           '4.2.0'
+gem 'momentjs-rails',                  '>= 2.9.0'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.7.14'
+gem "paperclip",                       '4.2'
+gem 'bcrypt',                          '3.1.7'
+gem 'bootstrap-sass',                  '3.2.0.0'
+gem 'sass-rails',                      '5.0.1'
+gem 'uglifier',                        '2.5.3'
+gem 'coffee-rails',                    '4.1.0'
+gem 'jquery-rails',                    '4.0.3'
+gem 'jbuilder',                        '2.2.3'
+gem 'sdoc',                            '0.4.0', group: :doc
 
 group :development, :test do
   gem 'sqlite3',     '1.3.9'

@@ -4,11 +4,13 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    @events = Event.all.order("id DESC")
+    @events = Event.all.order("time DESC")
+    pop = Art.all.sort {|a,b| a.events.size <=> b.events.size}.reverse
+    @popular = pop[0..4]
   end
 
   def list
-    @events = Event.all
+    @events = Event.all.order("time DESC")
   end
 
   # GET /events/1
@@ -20,16 +22,29 @@ class EventsController < ApplicationController
   # GET /events/new
   def new
     @event = Event.new
+    @art = Art.new
+    @artist = Artist.new
   end
 
   # GET /events/1/edit
   def edit
+    @art = Art.new
+    @artist = Artist.new
   end
 
   # POST /events
   # POST /events.json
   def create
     @event = Event.new(event_params)
+
+    artists = params[:artist_name]
+
+    if (artists != nil)
+      artists.each do |artist|
+        railsArtist = Artist.find_by(name: artist)
+        @event.artists.push(railsArtist)
+      end
+    end
 
     respond_to do |format|
       if @event.save
@@ -74,6 +89,6 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:title, :location, :about, :history, :poster, :time)
+      params.require(:event).permit(:title, :location, :about, :history, :poster, :time, :end_time)
     end
 end

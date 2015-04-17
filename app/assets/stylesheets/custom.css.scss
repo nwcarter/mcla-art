@@ -1,5 +1,6 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import 'bootstrap-datetimepicker';
 
 @mixin box_sizing {
   -moz-box-sizing:    border-box;
@@ -345,4 +346,8 @@ input, textarea, select, .uneditable-input {
 	{
 		text-align: center;
 	}
+}
+.date
+{
+	margin-bottom: 10px;
 }

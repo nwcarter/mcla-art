@@ -1,3 +1,66 @@
+<!-- Modal HTML -->
+
+    <div id="artist-model" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">New Artist</h4>
+                </div>
+                <div class="modal-body">
+                    <%= form_for @artist, :html => { :multipart => true }, :remote => true do |f| %>
+                  <div class="field">
+                    <%= f.label :name %><br>
+                    <%= f.text_field :name %>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="actions">
+                      <%= f.submit class: "btn btn-primary", data: { dismiss: "model" } %>
+                    </div>
+                    <% end %>
+                    <!-- <button id="new-artist" type="button" class="btn btn-primary" data-dismiss="modal">Add Artist</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="artwork-model" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">New Artwork</h4>
+                </div>
+                <div class="modal-body">
+                    <%= form_for @art, :html => { :multipart => true }, :remote => true do |f| %>
+                <div class="field">
+                  <%= f.label :name %><br>
+                  <%= f.text_field :name %>
+                </div>
+                <div class="field">
+                  <%= f.label :image %><br>
+                  <%= f.file_field :image, id: 'input-21', accept: 'image/*'%>
+                </div>
+                <div class="field">
+                  <label for="artist-dropdown">Add Artists</label><br>
+                  <select name="artist" id="artist-artwork-dropdown" class="bootstrap-select">
+                    <option value="placeholder">Placeholder</option>
+                    <div id="hidden-for-artwork" class="field"></div>
+                  </select>
+                </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="actions">
+                      <%= f.submit class: "btn btn-primary", data: { dismiss: "model" }%>
+                      <% end %>
+                      <!-- <button id="new-artwork" type="button" class="btn btn-primary" data-dismiss="modal">Add Artwork</button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 <%= form_for(@event) do |f| %>
   <% if @event.errors.any? %>
     <div id="error_explanation">
@@ -21,7 +84,18 @@
   </div>
   <div class="field">
     <%= f.label :time %><br>
-    <%= f.text_field :time %>
+    <div class='input-group date' id='datetimepicker1'>  
+      <%= f.text_field :time, class: "form-control" , placeholder: "Start Time"%>
+      <span class="input-group-addon">
+          <span class="glyphicon glyphicon-calendar"></span>
+      </span>
+    </div>
+    <div class='input-group date' id='datetimepicker2'>  
+      <%= f.text_field :end_time, class: "form-control" , placeholder: "End Time"%>
+      <span class="input-group-addon">
+          <span class="glyphicon glyphicon-calendar"></span>
+      </span>
+    </div>
   </div>
   <div class="field">
     <%= f.label :about %><br>
@@ -35,7 +109,139 @@
     <%= f.label :poster %><br>
     <%= f.file_field :poster, id: 'input-21', accept: 'image/*'%>
   </div>
+  <div class="field">
+    <label for="current-artists">Current Artists</label><br>
+    <ul id="current-artists"></ul>
+  </div>
+  <div class="field">
+    <label for="artist-dropdown">Add Artists</label><br>
+    <select id="artist-dropdown" class="bootstrap-select">
+      <option value="placeholder">Placeholder</option>
+      <div id="hidden" class="field"></div>
+    </select>
+    <!-- Button HTML (to Trigger Modal) -->
+    <button id="add-artist" class="btn btn-primary">Add Artist</button>
+    <a href="#artist-model" role="button" class="btn btn-primary" data-toggle="modal">New Artist</a>
+  </div>
+  <div class="field">
+    <label for="artwork-dropdown">Add Artwork</label><br>
+    <select id="artwork-dropdown" class="bootstrap-select">
+      <option value="placeholder">Placeholder</option>
+      <div id="hidden_artwork" class="field"></div>
+    </select>
+    <!-- Button HTML (to Trigger Modal) -->
+    <button id="add-artwork" class="btn btn-primary">Add Artwork</button>
+    <a href="#artwork-model" role="button" class="btn btn-primary" data-toggle="modal">New Artwork</a>
+  </div>
+  <div id="hidden" class="field"></div>
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+
+<script>
+  
+  $(function () 
+  {
+    jQuery.noConflict();
+    $('#datetimepicker1').datetimepicker();
+    $('#datetimepicker2').datetimepicker();
+    $("#datetimepicker1").on("dp.change", function (e) 
+    {
+      if($('#datetimepicker1').data("DateTimePicker").date() == null)
+      {
+        $('#datetimepicker1').data("DateTimePicker").date(new Date());
+      }
+      $('#datetimepicker2').data("DateTimePicker").minDate(e.date);
+    });
+    $("#datetimepicker2").on("dp.change", function (e) 
+    {
+      $('#datetimepicker1').data("DateTimePicker").maxDate(e.date);
+    });
+    $('#datetimepicker1').data("DateTimePicker").date(new Date());
+    $('#datetimepicker2').data("DateTimePicker").date(new Date());
+  });
+  
+  function getArtists()
+  {
+    $.get( "http://localhost:3000/get_artists", 
+      function( response ) 
+      {       
+        if (response != null)
+          refreshArtists(response);
+      });
+  }
+
+  function getArtwork()
+  {
+    $.get( "http://localhost:3000/get_artwork", 
+      function( response ) 
+      {       
+        if (response != null)
+          //refreshArtwork(response);
+      });
+  }
+
+  $('#new_art').submit(function()
+  {
+    console.log("Success!!");
+    jQuery.noConflict();
+    $('#artwork-model').modal('hide');
+  });
+  
+  $('#new_artist').submit(function()
+  {
+    console.log("Success!!");
+    getArtists();
+    jQuery.noConflict();
+    $('#artist-model').modal('hide');
+  });
+
+  $('#new_event').submit(function()
+  {
+    console.log("Success!!");
+  });
+
+  function refreshArtists(response)
+  {
+    $('#artist-dropdown').empty();
+    $('#artist-artwork-dropdown').empty();           
+    var ary = response;
+    
+    for (var i = 0; i < ary.length; i++) 
+    {
+      var id = ary[i].id;
+      var name = ary[i].name;
+      $('#artist-dropdown').append($('<option ' + 'id="' + id + '" class="' + name + '">' + ary[i].name +'</option>'));
+      $('#artist-artwork-dropdown').append($('<option ' + 'id="' + id + '" class="' + name + '">' + ary[i].name +'</option>'));
+    } 
+  }
+
+  function refreshArtwork(response)
+  {
+    $('#artist-dropdown').empty();
+    $('#artist-artwork-dropdown').empty();           
+    var ary = response;
+    
+    for (var i = 0; i < ary.length; i++) 
+    {
+      var id = ary[i].id;
+      var name = ary[i].name;
+      $('#artist-dropdown').append($('<option ' + 'id="' + id + '" class="' + name + '">' + ary[i].name +'</option>'));
+      $('#artist-artwork-dropdown').append($('<option ' + 'id="' + id + '" class="' + name + '">' + ary[i].name +'</option>'));
+    } 
+  }
+    
+  getArtists();
+  getArtwork();
+
+  $('#add-artist').click(function(event)
+  {
+      event.preventDefault();
+      var name = $('#artist-dropdown').val();
+      $('#hidden').append($('<input type="hidden"' + '" name="artist_name[]"' + '" value="' + name + '">'));
+      $('#current-artists').append($('<li>' + name + '</li>'));
+      return false;
+  });
+    
+</script>
