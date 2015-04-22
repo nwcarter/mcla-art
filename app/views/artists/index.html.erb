@@ -16,14 +16,17 @@
           <tr>
             <td><%= artist.name %></td>
             <td><%= link_to 'Show', artist %></td>
+            <% if logged_in? %>
             <td><%= link_to 'Edit', edit_artist_path(artist) %></td>
             <td><%= link_to 'Destroy', artist, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% end %>
           </tr>
         <% end %>
       </tbody>
     </table>
 
     <br>
-
+    <% if logged_in? %>
     <%= link_to 'New Artist', new_artist_path %>
+    <% end %>
 </div>

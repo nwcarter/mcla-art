@@ -1,3 +1,38 @@
+<script type="text/javascript">
+
+  var current_artists = [];
+  var current_artwork = [];
+  function displayCurrentArtists()
+  {
+    $('#hidden').empty();
+    $('#current-artists').empty();
+    if (current_artists.length > 0)
+    {
+      for (var x = 0; x < current_artists.length; x++)
+      {
+        var name = current_artists[x];
+        $('#hidden').append($('<input type="hidden"' + '" name="artist_name[]"' + '" value="' + name + '">'));
+        $('#current-artists').append($('<li class="' + name + '">' + name + '</li>'));
+      }
+    }
+  }
+
+  function displayCurrentArtwork()
+  {
+    $('#hidden_artwork').empty();
+    $('#current-artwork').empty();
+    if (current_artwork.length > 0)
+    {
+      for (var x = 0; x < current_artwork.length; x++)
+      {
+        var name = current_artwork[x];
+        $('#hidden_artwork').append($('<input type="hidden"' + '" name="artwork_name[]"' + '" value="' + name + '">'));
+        $('#current-artwork').append($('<li class="' + name + '">' + name + '</li>'));
+      }
+    }
+  }
+
+</script>
 <!-- Modal HTML -->
 
     <div id="artist-model" class="modal fade">
@@ -19,7 +54,6 @@
                       <%= f.submit class: "btn btn-primary", data: { dismiss: "model" } %>
                     </div>
                     <% end %>
-                    <!-- <button id="new-artist" type="button" class="btn btn-primary" data-dismiss="modal">Add Artist</button> -->
                 </div>
             </div>
         </div>
@@ -54,7 +88,6 @@
                     <div class="actions">
                       <%= f.submit class: "btn btn-primary", data: { dismiss: "model" }%>
                       <% end %>
-                      <!-- <button id="new-artwork" type="button" class="btn btn-primary" data-dismiss="modal">Add Artwork</button> -->
                     </div>
                 </div>
             </div>
@@ -81,22 +114,31 @@
   <div class="field">
     <%= f.label :location %><br>
     <%= f.text_field :location %>
-  </div>
-  <div class="field">
-    <%= f.label :time %><br>
-    <div class='input-group date' id='datetimepicker1'>  
-      <%= f.text_field :time, class: "form-control" , placeholder: "Start Time"%>
-      <span class="input-group-addon">
-          <span class="glyphicon glyphicon-calendar"></span>
-      </span>
-    </div>
-    <div class='input-group date' id='datetimepicker2'>  
-      <%= f.text_field :end_time, class: "form-control" , placeholder: "End Time"%>
-      <span class="input-group-addon">
-          <span class="glyphicon glyphicon-calendar"></span>
-      </span>
-    </div>
-  </div>
+  </div>    
+  <table width="100%">
+    <tr>
+      <th>Start Time</th>
+      <th>End Time</th>
+    </tr>
+    <tr>
+      <td>
+        <div class='input-group date' id='datetimepicker1'>  
+          <%= f.text_field :time, class: "form-control" , placeholder: "Start Time"%>
+          <span class="input-group-addon">
+              <span class="glyphicon glyphicon-calendar"></span>
+          </span>
+        </div>
+      </td>
+      <td>
+        <div class='input-group date' id='datetimepicker2'>  
+          <%= f.text_field :end_time, class: "form-control" , placeholder: "End Time"%>
+          <span class="input-group-addon">
+              <span class="glyphicon glyphicon-calendar"></span>
+          </span>
+        </div>
+      </td>
+    </tr>
+  </table>
   <div class="field">
     <%= f.label :about %><br>
     <%= f.text_area :about %>
@@ -107,11 +149,18 @@
   </div>
   <div class="field">
     <%= f.label :poster %><br>
-    <%= f.file_field :poster, id: 'input-21', accept: 'image/*'%>
+    <%= f.file_field :poster, id: 'input-22', accept: 'image/*'%>
   </div>
   <div class="field">
     <label for="current-artists">Current Artists</label><br>
-    <ul id="current-artists"></ul>
+    <ul id="current-artists">
+      <% if @event.artists.size > 0 %>
+        <% @event.artists.each do |artist| %>
+        <script>current_artists.push("<%= artist.name %>")</script>
+        <% end %>
+        <script>displayCurrentArtists();</script>
+      <% end %>
+    </ul>
   </div>
   <div class="field">
     <label for="artist-dropdown">Add Artists</label><br>
@@ -121,26 +170,60 @@
     </select>
     <!-- Button HTML (to Trigger Modal) -->
     <button id="add-artist" class="btn btn-primary">Add Artist</button>
+    <button id="remove_artist" class="btn btn-primary">Remove Artist</button>
     <a href="#artist-model" role="button" class="btn btn-primary" data-toggle="modal">New Artist</a>
+  </div>
+  <div class="field">
+    <label for="current-artwork">Current Artwork</label><br>
+    <ul id="current-artwork">
+      <% if @event.arts.size > 0 %>
+        <% @event.arts.each do |artwork| %>
+        <script>current_artwork.push("<%= artwork.name %>")</script>
+        <% end %>
+        <script>displayCurrentArtwork();</script>
+      <% end %>
+    </ul>
   </div>
   <div class="field">
     <label for="artwork-dropdown">Add Artwork</label><br>
     <select id="artwork-dropdown" class="bootstrap-select">
       <option value="placeholder">Placeholder</option>
-      <div id="hidden_artwork" class="field"></div>
     </select>
     <!-- Button HTML (to Trigger Modal) -->
     <button id="add-artwork" class="btn btn-primary">Add Artwork</button>
+    <button id="remove_artwork" class="btn btn-primary">Remove Artwork</button>
     <a href="#artwork-model" role="button" class="btn btn-primary" data-toggle="modal">New Artwork</a>
   </div>
-  <div id="hidden" class="field"></div>
+  <div id="hidden" class="field">
+    <% if @event.artists.size > 0 %>
+        <% @event.artists.each do |artist| %>
+        <input type="hidden" name="artist_name[]" value="<%= artist.name %>">
+        <% end %>
+      <% end %>
+  </div>
+  <div id="hidden_artwork" class="field">
+    <% if @event.arts.size > 0 %>
+      <% @event.arts.each do |artwork| %>
+      <input type="hidden" name="artwork_name[]" value="<%= artwork.name %>">
+      <% end %>
+    <% end %>
+  </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: "btn btn-primary"%>
   </div>
 <% end %>
-
 <script>
-  
+
+  $('#new_artist').bind('ajax:success', function(evt, data, status, xhr)
+  {
+    getArtists();
+  });
+
+  $('#new_artwork').bind('ajax:success', function(evt, data, status, xhr)
+  {
+    getArtwork();
+  });
+
   $(function () 
   {
     jQuery.noConflict();
@@ -178,7 +261,7 @@
       function( response ) 
       {       
         if (response != null)
-          //refreshArtwork(response);
+          refreshArtwork(response);
       });
   }
 
@@ -192,7 +275,6 @@
   $('#new_artist').submit(function()
   {
     console.log("Success!!");
-    getArtists();
     jQuery.noConflict();
     $('#artist-model').modal('hide');
   });
@@ -205,7 +287,8 @@
   function refreshArtists(response)
   {
     $('#artist-dropdown').empty();
-    $('#artist-artwork-dropdown').empty();           
+    $('#artist-artwork-dropdown').empty(); 
+    $('#artist-artwork-dropdown').append('<option>None</option>');         
     var ary = response;
     
     for (var i = 0; i < ary.length; i++) 
@@ -219,16 +302,16 @@
 
   function refreshArtwork(response)
   {
-    $('#artist-dropdown').empty();
-    $('#artist-artwork-dropdown').empty();           
+    $('#artwork-dropdown').empty();
+    console.log("In function.");
     var ary = response;
     
     for (var i = 0; i < ary.length; i++) 
     {
       var id = ary[i].id;
       var name = ary[i].name;
-      $('#artist-dropdown').append($('<option ' + 'id="' + id + '" class="' + name + '">' + ary[i].name +'</option>'));
-      $('#artist-artwork-dropdown').append($('<option ' + 'id="' + id + '" class="' + name + '">' + ary[i].name +'</option>'));
+
+      $('#artwork-dropdown').append($('<option ' + 'id="' + id + '" class="' + name + '">' + name +'</option>'));
     } 
   }
     
@@ -239,9 +322,36 @@
   {
       event.preventDefault();
       var name = $('#artist-dropdown').val();
-      $('#hidden').append($('<input type="hidden"' + '" name="artist_name[]"' + '" value="' + name + '">'));
-      $('#current-artists').append($('<li>' + name + '</li>'));
+      current_artists.push(name);
+      displayCurrentArtists();
       return false;
   });
-    
+  
+  $('#add-artwork').click(function(event)
+  {
+      event.preventDefault();
+      var name = $('#artwork-dropdown').val();
+      current_artwork.push(name);
+      displayCurrentArtwork();
+      return false;
+  });
+
+  $('#remove_artist').click(function(event)
+  {
+    event.preventDefault();
+    var name = $('#artist-dropdown').val();
+    var index = $.inArray(name, current_artists);
+    current_artists.splice(index, 1);
+    displayCurrentArtists();
+  });
+
+  $('#remove_artwork').click(function(event)
+  {
+    event.preventDefault();
+    var name = $('#artwork-dropdown').val();
+    var index = $.inArray(name, current_artwork);
+    current_artwork.splice(index, 1);
+    displayCurrentArtwork();
+  });
+
 </script>

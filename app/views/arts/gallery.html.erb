@@ -5,7 +5,7 @@
   <center>
     
     <% @arts.each do |art| %>
-    <a class="fancybox" rel="group" href="<%= art.image.url %>">
+    <a class="fancybox" title='<a href="arts/<%= art.id %>"><%= art.name %></a>' rel="group" href="<%= art.image.url %>">
       <div class="img-thumbnail image-thumbnail">
         <img class="imagetag" src="<%= art.image.url(:thumb) %>">
       </div>

@@ -1,11 +1,33 @@
-<div class="container">
+<div id="artist-container">
 	<p id="notice"><%= notice %></p>
 
-	<p>
-	  <strong>Name:</strong>
-	  <%= @artist.name %>
-	</p>
+	<h1 class="page-header"><%= @artist.name %></h1>
 
-	<%= link_to 'Edit', edit_artist_path(@artist) %> |
-	<%= link_to 'Back', artists_path %>
+	<p class="float-clear"></p>
+  <div id="gallery" class="container panel">
+  <h2 id="gallery-header" class="page-header">Artwork</h2>
+  <center>
+  	<% if @artist.arts.size == 0 %>
+    	<a class="fancybox" rel="group" href="/images/noImageAvailable.jpg">
+	      <div class="img-thumbnail image-thumbnail">
+	        <img class="imagetag" src="/images/noImageAvailable.jpg">
+	      </div>
+    	</a>
+    <% end %>
+    <% @artist.arts.each do |art| %>
+    <a class="fancybox" title='<a href="/arts/<%= art.id %>"><%= art.name %></a>' rel="group" href="<%= art.image.url %>">
+      <div class="img-thumbnail image-thumbnail">
+        <img class="imagetag" src="<%= art.image.url(:thumb) %>">
+      </div>
+    </a>
+    <% @count = @count + 1 %>
+    <% if @count % 4 == 0 %>
+    <p class="float-clear"></p>
+    <% end %>
+    <% end %>
+    <p class="float-clear"></p>
+  </center>
 </div>
+<% if logged_in? %>
+	<div id="bottom-links"><%= link_to 'Edit', edit_artist_path(@artist) %> | <%= link_to 'Back', artists_path %></div>
+<% end %>

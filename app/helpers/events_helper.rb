@@ -22,4 +22,19 @@ module EventsHelper
 
   	end
 
+  	def getTitle(title)
+  		if (title == "")
+  			return "No title provided"
+  		else
+  			return title
+  		end
+  	end
+
+  	def getLocation(location)
+  		if (location == "")
+  			return "No location provided."
+  		else
+  			return location
+  		end
+  	end
 end

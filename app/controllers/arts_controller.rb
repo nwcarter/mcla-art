@@ -22,25 +22,18 @@ class ArtsController < ApplicationController
     @art = Art.new
   end
 
-  def post_ajax
-    name = params[:name]
-    image = params[:image]
-    artist = Artist.find_by(name: params[:artist])
-    art = Art.create(name: name, image: image)
-    art.artists.push(artist)
-  end
-
   def get_ajax
-    arts = Art.all
-    imageUrls = []
-    arts.each do |art|
-      imageUrls.push(art.image.url(:thumb))
-    end
-    render :json => imageUrls
+    arts = Art.all.order("name")
+    render :json => arts
   end
 
   # GET /arts/1/edit
   def edit
+    @name = ""
+    art = Art.find(params[:id])
+    if art.artists != nil
+      @name = art.artists[0].name
+    end
   end
 
   # POST /arts
@@ -48,11 +41,11 @@ class ArtsController < ApplicationController
   def create
     @art = Art.new(art_params)
 
-    if params[:artist] != nil
+    if params[:artist] != nil && params[:artist] != "None"
       artist = Artist.find_by(name: params[:artist])
       @art.artists.push(artist)
     end
-    
+
     respond_to do |format|
       if @art.save
         format.html { redirect_to @art, notice: 'Art was successfully created.' }
@@ -67,6 +60,13 @@ class ArtsController < ApplicationController
   # PATCH/PUT /arts/1
   # PATCH/PUT /arts/1.json
   def update
+
+    @art.artists.clear
+    if params[:artist] != nil && params[:artist] != "None"
+      artist = Artist.find_by(name: params[:artist])
+      @art.artists.push(artist)
+    end
+    
     respond_to do |format|
       if @art.update(art_params)
         format.html { redirect_to @art, notice: 'Art was successfully updated.' }

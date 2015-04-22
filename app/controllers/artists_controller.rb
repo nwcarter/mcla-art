@@ -10,15 +10,22 @@ class ArtistsController < ApplicationController
   # GET /artists/1
   # GET /artists/1.json
   def show
+    @count = 0
   end
 
   # GET /artists/new
   def new
+    if !logged_in?
+      redirect_to artists_path
+    end
     @artist = Artist.new
   end
 
   # GET /artists/1/edit
   def edit
+    if !logged_in?
+      redirect_to artists_path
+    end
   end
 
   def get_ajax

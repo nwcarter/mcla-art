@@ -10,8 +10,8 @@
         end_time = @event.end_time
         end %>
     	<%= image_tag @event.poster.url(:home), class: 'poster' %>
-      <h3><%= @event.title %></br><small><%= @event.time %> - <%= end_time %></br>
-      Located in: <%= @event.location %></small></h3>
+      <h3><%= getTitle(@event.title) %></br><small><%= @event.time %> - <%= end_time %></br>
+      Located in: <%= getLocation(@event.location) %></small></h3>
     </center>
   </div>
         
@@ -23,7 +23,7 @@
     <h3>Artists Include:</h3>
     <ul>
     <% @event.artists.each do |artist| %>
-      <li><%= artist.name %></li>
+      <li><%= link_to artist.name, artist %></li>
     <% end %>  
     </ul>
     <% end %>
@@ -43,7 +43,7 @@
     	</a>
     <% end %>
     <% @event.arts.each do |art| %>
-    <a class="fancybox" rel="group" href="<%= art.image.url %>">
+    <a class="fancybox" title='<a href="/arts/<%= art.id %>"><%= art.name %></a>' rel="group" href="<%= art.image.url %>">
       <div class="img-thumbnail image-thumbnail">
         <img class="imagetag" src="<%= art.image.url(:thumb) %>">
       </div>
@@ -59,6 +59,8 @@
   <p class="float-clear"></p>
   </center>
 </div>
-<script type="text/javascript">
-  $('')
-</script>
+<% if logged_in? %>
+  <div id="bottom-links"><%= link_to 'Edit', edit_event_path(@event) %> | <%= link_to 'Destroy', @event, method: :delete, data: { confirm: 'Are you sure?' } %></div>
+<% end %>
+
+

@@ -2,7 +2,7 @@
 	<p id="notice"><%= notice %></p>
 
 	<p>
-		<%= image_tag @art.image.url(:large) %>
+		<%= link_to(image_tag(@art.image.url(:large)), @art.image.url) %>
 	</p>
 
 	<p>
@@ -26,7 +26,7 @@
 			None added.
 		<% end %>
 		<% @art.artists.each do |artist| %>
-			<%= artist.name %></br>
+			<%= link_to(artist.name, artist) %></br>
 		<% end %>
 	</p>
 

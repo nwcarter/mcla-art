@@ -10,6 +10,9 @@ class EventsController < ApplicationController
   end
 
   def list
+    if !logged_in?
+      redirect_to root_path
+    end
     @events = Event.all.order("time DESC")
   end
 
@@ -21,6 +24,9 @@ class EventsController < ApplicationController
 
   # GET /events/new
   def new
+    if !logged_in?
+      redirect_to root_path
+    end
     @event = Event.new
     @art = Art.new
     @artist = Artist.new
@@ -28,6 +34,9 @@ class EventsController < ApplicationController
 
   # GET /events/1/edit
   def edit
+    if !logged_in?
+      redirect_to root_path
+    end
     @art = Art.new
     @artist = Artist.new
   end
@@ -38,11 +47,23 @@ class EventsController < ApplicationController
     @event = Event.new(event_params)
 
     artists = params[:artist_name]
+    artwork = params[:artwork_name]
 
     if (artists != nil)
       artists.each do |artist|
         railsArtist = Artist.find_by(name: artist)
-        @event.artists.push(railsArtist)
+        if !@event.artists.include?(railsArtist)
+          @event.artists.push(railsArtist)
+        end
+      end
+    end
+
+    if (artwork != nil)
+      artwork.each do |artwork|
+        railsArtwork = Art.find_by(name: artwork)
+        if !@event.arts.include?(railsArtwork)
+          @event.arts.push(railsArtwork)
+        end
       end
     end
 
@@ -60,6 +81,29 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1
   # PATCH/PUT /events/1.json
   def update
+    artists = params[:artist_name]
+    artwork = params[:artwork_name]
+
+    @event.artists.clear
+    if (artists != nil)
+      artists.each do |artist|
+        railsArtist = Artist.find_by(name: artist)
+        if !@event.artists.include?(railsArtist) 
+          @event.artists.push(railsArtist)
+        end
+      end
+    end
+
+    @event.arts.clear
+    if (artwork != nil)
+      artwork.each do |artwork|
+        railsArtwork = Art.find_by(name: artwork)
+        if !@event.arts.include?(railsArtwork)
+          @event.arts.push(railsArtwork)
+        end
+      end
+    end
+
     respond_to do |format|
       if @event.update(event_params)
         format.html { redirect_to @event, notice: 'Event was successfully updated.' }
