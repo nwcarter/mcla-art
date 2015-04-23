@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.1.3'
+#ruby '2.1.3'
 
 gem 'remotipart',                      '~> 1.2'
 gem 'rails',                           '4.2.0'
