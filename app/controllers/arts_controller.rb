@@ -31,7 +31,7 @@ class ArtsController < ApplicationController
   def edit
     @name = ""
     art = Art.find(params[:id])
-    if art.artists != nil
+    if art.artists.size > 0
       @name = art.artists[0].name
     end
   end

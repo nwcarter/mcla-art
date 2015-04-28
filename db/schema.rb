@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150416175325) do
+ActiveRecord::Schema.define(version: 20150427174337) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "artists", force: :cascade do |t|
     t.string   "name"
@@ -24,16 +27,16 @@ ActiveRecord::Schema.define(version: 20150416175325) do
     t.integer "artist_id"
   end
 
-  add_index "artists_arts", ["art_id"], name: "index_artists_arts_on_art_id"
-  add_index "artists_arts", ["artist_id"], name: "index_artists_arts_on_artist_id"
+  add_index "artists_arts", ["art_id"], name: "index_artists_arts_on_art_id", using: :btree
+  add_index "artists_arts", ["artist_id"], name: "index_artists_arts_on_artist_id", using: :btree
 
   create_table "artists_events", id: false, force: :cascade do |t|
     t.integer "event_id"
     t.integer "artist_id"
   end
 
-  add_index "artists_events", ["artist_id"], name: "index_artists_events_on_artist_id"
-  add_index "artists_events", ["event_id"], name: "index_artists_events_on_event_id"
+  add_index "artists_events", ["artist_id"], name: "index_artists_events_on_artist_id", using: :btree
+  add_index "artists_events", ["event_id"], name: "index_artists_events_on_event_id", using: :btree
 
   create_table "arts", force: :cascade do |t|
     t.datetime "created_at",         null: false
@@ -50,8 +53,8 @@ ActiveRecord::Schema.define(version: 20150416175325) do
     t.integer "art_id"
   end
 
-  add_index "arts_events", ["art_id"], name: "index_arts_events_on_art_id"
-  add_index "arts_events", ["event_id"], name: "index_arts_events_on_event_id"
+  add_index "arts_events", ["art_id"], name: "index_arts_events_on_art_id", using: :btree
+  add_index "arts_events", ["event_id"], name: "index_arts_events_on_event_id", using: :btree
 
   create_table "events", force: :cascade do |t|
     t.string   "title"
@@ -70,13 +73,13 @@ ActiveRecord::Schema.define(version: 20150416175325) do
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
-    t.string   "email"
+    t.string   "username"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.string   "password_digest"
     t.string   "remember_digest"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
 end
